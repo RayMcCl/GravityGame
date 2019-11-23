@@ -15,7 +15,7 @@ public class GravityController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rigidbody = GetComponent<Rigidbody>();
-		rigidbody.mass = transform.localScale.x * transform.localScale.y * transform.localScale.z * density;
+		// rigidbody.mass = transform.localScale.x * transform.localScale.y * transform.localScale.z * density;
 	}
 
 	// Update is called once per frame
@@ -34,6 +34,7 @@ public class GravityController : MonoBehaviour {
 			}
 
 			updateVelocity(force);
+			transform.LookAt(transform.position + rigidbody.velocity);
 		}
 	}
 
