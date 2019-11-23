@@ -12,7 +12,7 @@ public class ShipController : MonoBehaviour {
 	void Start () {
 		startPosition = transform.position;
 		rigidbody = GetComponent<Rigidbody>();
-		rigidbody.velocity = (speed * Time.deltaTime * Vector3.forward);
+		// rigidbody.velocity = (speed * Time.deltaTime * Vector3.forward);
 	}
 
 	// // Update is called once per frame

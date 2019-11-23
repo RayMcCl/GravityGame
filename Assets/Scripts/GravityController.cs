@@ -48,6 +48,35 @@ public class GravityController : MonoBehaviour {
 		return direction * GRAVITY_CONSTANT * (thisMass * otherMass) / Mathf.Pow(distance, 2);
 	}
 
+	Vector3 calculateInitialSpeed () {
+
+		GravityController[] controllers = getGravityControllers();
+
+			float maxMass = 0;
+			Vector3 maxPosition = Vector3.zero;
+
+			foreach(GravityController controller in controllers) {
+
+				if (controller != this){
+					Rigidbody controllerRigidbody = controller.GetComponent<Rigidbody>();
+
+					if (controllerRigidbody.mass > maxMass) {
+						maxMass = controllerRigidbody.mass;
+						maxPosition = controller.transform.position;
+					}
+				}
+			}
+
+		Vector3 direction = Vector3.Normalize(maxPosition - transform.position);
+		direction = Quaternion.AngleAxis(-90, Vector3.up) * direction;
+		float distance = Vector3.Distance(maxPosition, transform.position);
+		float speed = Mathf.Sqrt(GRAVITY_CONSTANT * maxMass / distance);
+		Debug.Log(direction * speed);
+
+		return direction * speed;
+
+	}
+
 	GravityController[] getGravityControllers () {
 		var gravityArray = FindObjectsOfType<GravityController>();
 		return gravityArray;
